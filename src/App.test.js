@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
+import { replaceCamelCaseWithSpace } from "./App";
 
 // string description and test function
 // the first thing you want to do after the string description is defined is render the component
@@ -65,4 +66,19 @@ test("Disabled button has gray background and reverts to blue", () => {
   // re-enable button
   fireEvent.click(checkbox);
   expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+});
+
+// describe statements is a way of grouping tests
+describe("spaces before camel-case capital letters", () => {
+  test("Works for no inner capital letters", () => {
+    expect(replaceCamelCaseWithSpace("Red")).toBe("Red");
+  });
+  test("Works for one inner capital letter", () => {
+    expect(replaceCamelCaseWithSpace("MidnightBlue")).toBe("Midnight Blue");
+  });
+  test("Works for multiple inner capital letters", () => {
+    expect(replaceCamelCaseWithSpace("MediumVioletRed")).toBe(
+      "Medium Violet Red"
+    );
+  });
 });
