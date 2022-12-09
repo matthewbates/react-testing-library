@@ -1,20 +1,37 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  const [color, setColor] = useState("red");
+  const [buttonColor, setButtonColor] = useState("red");
+  const [disabled, setDisabled] = useState(false);
 
-  const newButtonColor = color === "red" ? "blue" : "red";
+  const newButtonColor = buttonColor === "red" ? "blue" : "red";
+  const updateCheckbox = (e) => {
+    setDisabled(e.target.checked);
+  };
 
   return (
-    <div>
-      <button
-        onClick={() => setColor(newButtonColor)}
-        style={{ background: color }}
-      >
-        Change to {newButtonColor}
-      </button>
+    <div className="container">
+      <div className="items">
+        <button
+          onClick={() => setButtonColor(newButtonColor)}
+          style={{
+            backgroundColor: disabled ? "gray" : buttonColor,
+            fontWeight: "bold",
+            padding: "10px",
+          }}
+          disabled={disabled}
+        >
+          Change to {newButtonColor}
+        </button>
+        <br />
+        <input
+          onChange={updateCheckbox}
+          type="checkbox"
+          defaultChecked={disabled}
+        />
+        <label htmlFor="disable-button-checkbox">Disable button</label>
+      </div>
     </div>
   );
 }
